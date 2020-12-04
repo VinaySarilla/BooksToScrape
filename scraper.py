@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pymysql
-import fb
+import db
 import time
 
 global t0
@@ -78,6 +78,6 @@ def insertingINdB(title, rating, price, availability, description, genre, upc):
     con.commit()
     con.close()
 
-fb.konnect()
+db.konnect()
 tradeSpider()
 
