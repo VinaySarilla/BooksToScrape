@@ -53,26 +53,26 @@ def eachBook(bookLink):
     price = bookSoup.p.string
     rating = bookSoup.find_all('p')[2].get('class')[1]
     description = bookSoup.find_all('p')[3].string
-    availibilty = bookSoup.find_all('td')[5].string
+    availability = bookSoup.find_all('td')[5].string
     upc = bookSoup.find_all('td')[0].string
     genre = bookSoup.find_all('li')[2].a.string
-    formatting(title, rating, price, availibilty, description, genre, upc)
+    formatting(title, rating, price, availability, description, genre, upc)
 
-def formatting(title, rating, price, availibilty, description, genre, upc):
+def formatting(title, rating, price, availability, description, genre, upc):
     title = title
     rating_dict = {'One': '1', 'Two': '2', 'Three': '3', 'Four': '4', 'Five': '5'}
     rating = int(rating_dict[rating])
     description=description
     price=float(price[2:])
-    availibilty = int(availibilty[10:-11])
+    availability = int(availability[10:-11])
     upc = upc
     genre = genre
-    insertingINdB(title, rating, price, availibilty, description, genre, upc)
+    insertingINdB(title, rating, price, availability, description, genre, upc)
 
-def insertingINdB(title, rating, price, availibilty, description, genre, upc):
-    con = pymysql.connect(host='localhost', user='root', passwd='', db='scarpedb')
+def insertingINdB(title, rating, price, availability, description, genre, upc):
+    con = pymysql.connect(host='localhost', user='root', passwd='', db='scrapedb')
     mycursor = con.cursor()
-    args=(title, rating, price, availibilty, description, genre, upc)
+    args=(title, rating, price, availability, description, genre, upc)
     query="INSERT INTO books1 values(NULL, %s,  %s, %s, %s, %s, %s, %s)"
     mycursor.execute(query, args)
     con.commit()
